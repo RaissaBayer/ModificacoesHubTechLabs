@@ -22,7 +22,11 @@ document.getElementById("cadastrar-btn").addEventListener("click", async () => {
     console.log("📤 Enviando dados para o backend:", dados); // 🔹 Depuração
 
     try {
-        const response = await fetch("https://hub-orcin.vercel.app/cadastrar-unidade", {
+        //🚭Como era na Vercel
+        // const response = await fetch("https://hub-orcin.vercel.app/cadastrar-unidade", 
+        //🚭Como é localmente
+        const response = await fetch("http://localhost:3000/cadastrar-unidade", 
+        {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -128,7 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar perfil do usuário logado
     async function carregarPerfil() {
         try {
-        const response = await fetch("https://hub-orcin.vercel.app/perfil", {
+        //🚭Como era na Vercel
+        // const response = await fetch("https://hub-orcin.vercel.app/perfil", 
+        //🚭Como é localmente
+        const response = await fetch("http://localhost:3000/perfil", 
+        {
             headers: { Authorization: token },
         });
 
@@ -176,8 +184,10 @@ document.addEventListener("DOMContentLoaded", () => {
     async function carregarCoordenadores() {
         try {
             console.log("Carregando coordenadores..."); // 🔹 Para depuração
-    
-            const response = await fetch("https://hub-orcin.vercel.app/listar-coordenadores");
+            //🚭Como era na Vercel
+            // const response = await fetch("https://hub-orcin.vercel.app/listar-coordenadores");
+            //🚭Como é localmente
+            const response = await fetch("http://localhost:3000/listar-coordenadores");
     
             if (!response.ok) {
                 throw new Error("Erro ao carregar os coordenadores.");

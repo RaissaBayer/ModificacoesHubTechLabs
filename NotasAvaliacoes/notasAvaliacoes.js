@@ -41,7 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar perfil do usuário logado
     async function carregarPerfil() {
         try {
-        const response = await fetch("https://hub-orcin.vercel.app/perfil", {
+        //🚭Como era na Vercel
+        // const response = await fetch("https://hub-orcin.vercel.app/perfil", 
+        //🚭Como é localmente
+        const response = await fetch("http://localhost:3000/perfil",
+        {
             headers: { Authorization: token },
         });
 
@@ -67,8 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!email) {
                 throw new Error("Nenhum email encontrado no localStorage");
             }
-    
-            const response = await fetch("https://hub-orcin.vercel.app/usuarios"); // Chama a API
+            //🚭Como era na Vercel
+            // const response = await fetch("https://hub-orcin.vercel.app/usuarios");
+            //🚭Como é localmente
+            const response = await fetch("http://localhost:3000/usuarios");
             if (!response.ok) {
                 throw new Error("Erro ao buscar usuários");
             }
@@ -90,7 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     async function carregarTurmas() {
         try {
-            const response = await fetch("https://hub-orcin.vercel.app/dados"); // Requisição ao backend
+            //🚭Como era na Vercel
+            // const response = await fetch("https://hub-orcin.vercel.app/dados");
+            //🚭Como é localmente
+            const response = await fetch("http://localhost:3000/dados");
             if (!response.ok) {
                 throw new Error("Erro ao buscar as turmas");
             }
@@ -145,7 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar avaliações da turma selecionada
     async function carregarAvaliacoes(turma) {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/avaliacoes'); // Ajuste para a rota que retorna as avaliações
+            //🚭Como é localmente
+            // const response = await fetch('https://hub-orcin.vercel.app/avaliacoes'); 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/avaliacoes'); 
             const avaliacoes = await response.json();
 
             // Filtra as avaliações pela turma selecionada
@@ -191,7 +203,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para gerar lista de alunos da turma
     async function gerarListaAlunos(turma) {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/dados'); // Ajuste a rota para obter as turmas
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/dados'); 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/dados'); 
             const dados = await response.json();
             const turmaData = dados[turma]; // Obtém os dados da turma
 
@@ -271,7 +286,11 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/salvar-notas-avaliacoes', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/salvar-notas-avaliacoes', 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/salvar-notas-avaliacoes', 
+            {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dadosNotas)

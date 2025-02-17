@@ -22,7 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar as turmas do servidor
     async function carregarTurmas() {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/listar-turmas'); // Requisição ao backend
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/listar-turmas'); 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/listar-turmas'); 
             if (!response.ok) {
                 throw new Error("Erro ao buscar as turmas");
             }
@@ -83,7 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/salvar-avaliacao', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/salvar-avaliacao', 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/salvar-avaliacao',
+            {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(avaliacao)
@@ -121,7 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar perfil do usuário logado
     async function carregarPerfil() {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/perfil', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/perfil', 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/perfil', 
+            {
                 headers: { Authorization: token }
             });
 
@@ -143,7 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
 async function obterListaDeAlunos(turmaSelecionada) {
     try {
         // Requisição ao servidor para obter as turmas
-        const response = await fetch('https://hub-orcin.vercel.app/dados'); // Ou o endpoint correspondente
+        //🚭Como era na Vercel
+        // const response = await fetch('https://hub-orcin.vercel.app/dados'); 
+        //🚭Como é localmente
+        const response = await fetch('http://localhost:3000/dados');
         if (!response.ok) {
             throw new Error("Erro ao buscar turmas");
         }

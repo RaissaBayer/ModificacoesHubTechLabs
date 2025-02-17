@@ -9,7 +9,10 @@ const multer = require('multer');
 
 const app = express();
 const mysql = require('mysql2/promise');
-const port = 80;
+//🚭Como era na Vercel
+// const port = 80;
+//🚭Como é localmente
+const port = 3000;
 const secretKey = "sua_chave_secreta_super_segura";
 
 // Middleware
@@ -28,12 +31,20 @@ const dadosPath = path.join(__dirname, 'data', 'dados.json'); // Caminho para da
 const presencaPath = path.join(__dirname, 'output', 'presenca_dados.json'); // Caminho para presenca_dados.json
 const usuariosPath = path.join(__dirname, 'output', 'usuarios.json');
 
+//🚭Como era na Vercel
+// const dbConfig = {
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME
+// };
 
+//🚭Como é localmente
 const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'diario_turmas'
 };
 
 app.post('/salvar-turma', async (req, res) => {

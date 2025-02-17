@@ -33,7 +33,10 @@ function adicionarInput(containerId = "inputs-alunos") {
 document.addEventListener('DOMContentLoaded', () => {
     async function carregarUnidades() {
     try {
-        const response = await fetch('https://hub-orcin.vercel.app/listar-unidades');
+        //🚭Como era na Vercel
+        // const response = await fetch('https://hub-orcin.vercel.app/listar-unidades');
+        //🚭Como é localmente
+        const response = await fetch('http://localhost:3000/listar-unidades');
         if (!response.ok) throw new Error('Erro ao buscar unidades');
         
         const unidades = await response.json();
@@ -166,7 +169,11 @@ async function salvarTurma() {
     };
 
     try {
-        const response = await fetch('https://hub-orcin.vercel.app/salvar-turma', {
+        //🚭Como era na Vercel
+        // const response = await fetch('https://hub-orcin.vercel.app/salvar-turma',
+        //🚭Como é localmente
+        const response = await fetch('http://lcoalhost:3000/salvar-turma',
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -329,7 +336,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function carregarPerfil() {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/perfil', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/perfil',
+            //🚭Como é localmente 
+            const response = await fetch('http://localhost:3000/perfil',
+            {
                 headers: { Authorization: token }
             });
 
@@ -349,7 +360,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function carregarInstrutores() {
     try {
-        const response = await fetch("https://hub-orcin.vercel.app/listar-instrutores");
+        //🚭Como era na Vercel
+        // const response = await fetch("https://hub-orcin.vercel.app/listar-instrutores");
+        //🚭Como é localmente
+        const response = await fetch("http://localhost:3000/listar-instrutores");
         if (!response.ok) throw new Error("Erro ao carregar os instrutores.");
 
         const instrutores = await response.json();
@@ -403,7 +417,10 @@ document.addEventListener("click", (event) => {
 
 async function carregarUnidades() {
     try {
-        const response = await fetch('https://hub-orcin.vercel.app/listar-unidades');
+        //🚭Como era na Vercel
+        // const response = await fetch('https://hub-orcin.vercel.app/listar-unidades');
+        //🚭Como é localmente
+        const response = await fetch('http://localhost:3000/listar-unidades');
         if (!response.ok) throw new Error('Erro ao buscar unidades');
         const unidades = await response.json();
 
@@ -437,7 +454,11 @@ async function salvarTurma() {
     const dados = { turma: nomeTurma, instrutor: nomeInstrutor, alunos, unidade_id: unidadeId };
 
     try {
-        const response = await fetch('https://hub-orcin.vercel.app/salvar-turma', {
+        //🚭Como era na Vercel
+        // const response = await fetch('https://hub-orcin.vercel.app/salvar-turma', 
+        //🚭Como é localmente
+        const response = await fetch('http://localhost:3000/salvar-turma', 
+        {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados),

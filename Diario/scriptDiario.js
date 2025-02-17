@@ -10,8 +10,10 @@ async function obterNomeUsuario() {
       if (!email) {
           throw new Error("Nenhum email encontrado no localStorage");
       }
-
-      const response = await fetch("https://hub-orcin.vercel.app/usuarios"); // Chama a API
+      //🚭Como era na Vercel
+      // const response = await fetch("https://hub-orcin.vercel.app/usuarios");
+      //🚭Como é localmente
+      const response = await fetch("http://localhost:3000/usuarios");
       if (!response.ok) {
           throw new Error("Erro ao buscar usuários");
       }
@@ -32,7 +34,10 @@ async function obterNomeUsuario() {
 
 async function carregarTurmas() {
   try {
-      const response = await fetch("https://hub-orcin.vercel.app/dados"); // Requisição ao backend
+      //🚭Como era na Vercel
+      // const response = await fetch("https://hub-orcin.vercel.app/dados"); 
+      //🚭Como é localmente
+      const response = await fetch("http://localhost:3000/dados"); 
       if (!response.ok) {
           throw new Error("Erro ao buscar as turmas");
       }
@@ -97,7 +102,10 @@ async function salvarDados() {
 
   try {
     // Verificar se já existe um diário salvo para essa data e turma
-    const responseVerificacao = await fetch("https://hub-orcin.vercel.app/dados-presenca");
+    //🚭Como era na Vercel
+    // const responseVerificacao = await fetch("https://hub-orcin.vercel.app/dados-presenca");
+    //🚭Como é localmente
+    const responseVerificacao = await fetch("http://localhost:3000/dados-presenca");
     
     if (!responseVerificacao.ok) {
       throw new Error("Erro ao verificar dados de presença existentes");
@@ -142,7 +150,11 @@ async function salvarDados() {
       })),
     };
 
-    const response = await fetch("https://hub-orcin.vercel.app/salvar-presenca", {
+    //🚭Como era na Vercel
+    // const response = await fetch("https://hub-orcin.vercel.app/salvar-presenca", 
+    //🚭Como é localmente
+    const response = await fetch("http://localhost:3000/salvar-presenca", 
+    {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados),
@@ -268,7 +280,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Função para carregar perfil do usuário logado
     async function carregarPerfil() {
         try {
-        const response = await fetch("https://hub-orcin.vercel.app/perfil", {
+        //🚭Como era na Vercel
+        // const response = await fetch("https://hub-orcin.vercel.app/perfil", 
+        //🚭Como é localmente
+        const response = await fetch("http://localhost:3000/perfil",  
+        {
             headers: { Authorization: token },
         });
 

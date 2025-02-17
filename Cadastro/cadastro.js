@@ -59,7 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/cadastro', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/cadastro', 
+            //🚭Como é localmente
+            const response = await fetch('http://localhost:3000/cadastro',
+            {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, senha, tipo, name, phone, city, state, unit, photo: "/projeto/Imagens/perfil.png" })
@@ -105,7 +109,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function carregarPerfil() {
         try {
-            const response = await fetch('https://hub-orcin.vercel.app/perfil', {
+            //🚭Como era na Vercel
+            // const response = await fetch('https://hub-orcin.vercel.app/perfil',
+            //🚭Como é localmente 
+            const response = await fetch('http://localhost:3000/perfil', 
+            {
                 headers: { Authorization: token }
             });
 
