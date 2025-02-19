@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function carregarTurmas() {
     try {
+        //🚭Como era na Vercel
+        //const response = await fetch("https://hub-orcin.vercel.app/dados");
+        //🚭Como é localmente
         const response = await fetch("http://localhost:3000/dados");
         if (!response.ok) throw new Error("Erro ao buscar as turmas");
 
