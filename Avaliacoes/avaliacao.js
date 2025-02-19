@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
-    function getUserType() {
-        return localStorage.getItem("tipoUsuario");
-    }
-    async function verificarAcessoRestrito() {
-        try {
-        const tipoUsuario = getUserType();
-        if (!tipoUsuario) {
-        }
+    // function getUserType() {
+    //     return localStorage.getItem("tipoUsuario");
+    // }
+    // async function verificarAcessoRestrito() {
+    //     try {
+    //     const tipoUsuario = getUserType();
+    //     if (!tipoUsuario) {
+    //     }
 
-        // Verifica se é um Coordenador e bloqueia o acesso
-        if (tipoUsuario === 'Instrutor') {
-            window.location.href = "/Erro/erro.html"; // Redireciona para a página de erro
-        }
-        } catch (error) {
-        }
-    }
-    verificarAcessoRestrito();
+    //     // Verifica se é um Instrutor e bloqueia o acesso
+    //     if (tipoUsuario === 'Instrutor') {
+    //         window.location.href = "/Erro/erro.html"; // Redireciona para a página de erro
+    //     }
+    //     } catch (error) {
+    //     }
+    // }
+    // verificarAcessoRestrito();
 
     const formAvaliacao = document.getElementById("form-avaliacao");
 
@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
     async function carregarTurmas() {
         try {
             //🚭Como era na Vercel
-            // const response = await fetch('https://hub-orcin.vercel.app/listar-turmas'); 
+            // const response = await fetch('https://hub-orcin.vercel.app/dados'); 
             //🚭Como é localmente
-            const response = await fetch('http://localhost:3000/listar-turmas'); 
+            const response = await fetch('http://localhost:3000/dados'); 
             if (!response.ok) {
                 throw new Error("Erro ao buscar as turmas");
             }
@@ -33,17 +33,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const selectElement = document.getElementById("turma"); // ID correto
 
-            // Limpa o dropdown antes de preenchê-lo
-            selectElement.innerHTML = '<option value="" disabled selected>Escolha uma turma</option>';
+            const nomeUsuario = localStorage.getItem("nomeUsuario"); // Obtém o nome do instrutor
+            if (!nomeUsuario) {
+                throw new Error("Nome do usuário não encontrado no localStorage");
+            }
+      
+            // Filtra turmas onde o instrutor seja o usuário logado
+            const turmasFiltradas = Object.entries(turmas)
+            .filter(([_, turma]) => turma.instrutor === nomeUsuario)
+            .map(([nomeTurma]) => nomeTurma);
 
-            // Preenche o dropdown com as turmas recebidas
-            turmas.forEach(turma => {
+            selectElement.innerHTML = ""; // Limpa opções anteriores
+      
+            // Adiciona a opção inicial
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "Escolha sua turma";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            selectElement.appendChild(defaultOption);
+      
+            // Preenche o dropdown com as turmas filtradas
+            turmasFiltradas.forEach(nomeTurma => {
                 const option = document.createElement("option");
-                option.value = turma; // Valor da turma
-                option.textContent = turma; // Exibe o nome da turma corretamente
+                option.value = nomeTurma;
+                option.textContent = nomeTurma;
                 selectElement.appendChild(option);
             });
+
         } catch (error) {
+            console.error("Erro ao carregar turmas:", error);
         }
     }
 

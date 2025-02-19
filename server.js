@@ -101,9 +101,9 @@ app.post('/salvar-turma', async (req, res) => {
 
 // Rota para salvar os dados de presença 
 app.post('/salvar-presenca', async(req, res) => {
-    const { turma, data, dataSalvo, alunos } = req.body;
+    const { turma, data, dataSalvo, conteudoAula, alunos } = req.body;
 
-    if (!turma || !data || !alunos || alunos.length === 0) {
+    if (!turma || !data || !conteudoAula || !alunos || alunos.length === 0) {
         return res.status(400).send({ message: "Faltam informações obrigatórias: turma, data ou lista de alunos." });
     }
 
@@ -129,11 +129,12 @@ app.post('/salvar-presenca', async(req, res) => {
             aluno.nome, // aluno
             aluno.presenca, // presenca
             aluno.nota,      // nota
-            aluno.observacao // observacao
+            aluno.observacao, // observacao
+            conteudoAula
         ]);
 
         await connection.query(
-            'INSERT INTO presencas (turma_id, data, aluno, presenca, nota, observacao) VALUES ?',
+            'INSERT INTO presencas (turma_id, data, aluno, presenca, nota, observacao, conteudoAula) VALUES ?',
             [presencas]
         );
 
@@ -447,7 +448,7 @@ app.get('/dados', async(req, res) => {
         const connection = await mysql.createConnection(dbConfig);
 
         // Buscar as turmas
-        const [turmas] = await connection.query('SELECT id, nome, instrutor FROM turmas');
+        const [turmas] = await connection.query('SELECT id, nome, instrutor, unidade_id FROM turmas');
 
         // Obter os alunos de cada turma
         const [alunos] = await connection.query('SELECT nome, turma_id FROM alunos');
@@ -460,6 +461,7 @@ app.get('/dados', async(req, res) => {
         turmas.forEach(turma => {
             turmasEstruturadas[turma.nome] = {
                 instrutor: turma.instrutor,
+                unidade_id: turma.unidade_id,
                 alunos: alunos
                     .filter(aluno => aluno.turma_id === turma.id)
                     .map(aluno => aluno.nome)
@@ -470,6 +472,28 @@ app.get('/dados', async(req, res) => {
     } catch (error) {
         console.error("Erro ao carregar os dados de turmas:", error);
         res.status(500).send({ message: "Erro ao carregar os dados de turmas." });
+    }
+});
+
+app.get('/unidades', async (req, res) => {
+    try {
+        const connection = await mysql.createConnection(dbConfig);
+        
+        // Buscar todas as unidades cadastradas
+        const [unidades] = await connection.query('SELECT id, unidade FROM unidades');
+
+        await connection.end();
+        
+        // Estruturar os dados para fácil acesso
+        const unidadesMap = {};
+        unidades.forEach(u => {
+            unidadesMap[u.id] = u.unidade; // Mapeia ID para Nome da Unidade
+        });
+
+        res.status(200).json(unidadesMap);
+    } catch (error) {
+        console.error('Erro ao buscar unidades:', error);
+        res.status(500).json({ message: 'Erro ao buscar unidades.' });
     }
 });
 

@@ -93,6 +93,7 @@ function obterListaDeAlunos(turmaSelecionada) {
 async function salvarDados() {
   const turmaSelecionada = document.getElementById("turma-select").value;
   const dataChamada = document.getElementById("data-chamada").value;
+  const conteudoAula = document.getElementById("conteudo-aula").value.trim();
   const alunos = document.querySelectorAll("#alunos-list tr");
 
   if (!dataChamada) {
@@ -140,6 +141,7 @@ async function salvarDados() {
     const dados = {
       turma: turmaSelecionada,
       data: dataChamada,
+      conteudoAula: conteudoAula,
       alunos: Array.from(alunos).map((aluno) => ({
         nome: aluno.querySelector("td:first-child").textContent,
         presenca: aluno.querySelector(".presenca-check").checked
@@ -185,6 +187,7 @@ function obterListaDeAlunos(turmaSelecionada) {
 
 function resetarCampos() {
   document.getElementById("turma-select").value = "";
+  document.getElementById("conteudo-aula").value = "";
   document.getElementById("data-chamada").value = "";
   document.getElementById("alunos-container").classList.add("hidden");
   document.getElementById("salvar-btn").classList.add("hidden");

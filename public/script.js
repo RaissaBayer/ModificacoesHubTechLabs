@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const elementosRestritos = [
                 "/Cadastro/cadastro.html",
                 "/CadastroUnidades/cadastroUnidades.html",
-                "/Avaliacoes/avaliacao.html"
+                // "/Avaliacoes/avaliacao.html"
             ];
 
             document.querySelectorAll(".access-link").forEach(link => {
